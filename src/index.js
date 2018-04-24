@@ -1,6 +1,7 @@
 import Painter from "./objects/painter";
 import Brain from "./objects/brain";
 import Ball from "./objects/ball";
+import './styles/app.css';
 
 const canvas = document.getElementById("canvas");
 
@@ -11,17 +12,22 @@ window.onload = () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
   const FPS = 120;
-  const dt = 1000 / FPS; // in milliseconds
+  const INTERVAL = 1 / FPS; /* in seconds */
+
+  const brain = new Brain(INTERVAL, canvas);
   const painter = new Painter(canvas);
-  const brain = new Brain((1 / FPS), canvas);
 
   setInterval(() => {
     brain.move(gameObjects);
     painter.draw(gameObjects);
-  }, dt);
+  }, INTERVAL * 1000 /* in milliseconds */);
 
   canvas.addEventListener("click", createBall);
 }
+
+/*************************************/
+/******** HELPER FUNCTIONS ***********/
+/*************************************/
 
 function createBall(event) {
   const { x, y } = getMousePosition(event);

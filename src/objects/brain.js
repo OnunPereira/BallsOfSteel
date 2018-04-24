@@ -31,7 +31,7 @@ export default class Brain {
       if (obj.y - obj.radius < 0) {
 
         obj.vy = changeVelocity(obj.vy);
-        obj.y = obj.radius;
+        obj.y = obj.radius + 1;
 
       } else if (obj.y + obj.radius > this.maxHeight) {
 
