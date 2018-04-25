@@ -6,10 +6,10 @@ export default class Painter {
   }
 
   /**
-   * Clears canvas and designs every active ball on the balls array.
+   * Clears canvas and draws every active Ball object on the Balls array.
    * This method is executed every frame.
    * 
-   * @param {any} balls 
+   * @param {[Balls]} balls 
    * @memberof Painter
    */
   draw(balls) {

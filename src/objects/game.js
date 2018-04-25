@@ -4,13 +4,13 @@ import Ball from "./ball";
 
 export default class Game {
 
-  constructor(canvas, { width, height, fps, gravity }) {
+  constructor(canvas, settings) {
     this.c = canvas;
-    this.width = width;
-    this.height = height;
-    this.fps = fps;
+    this.width = settings.width;
+    this.height = settings.height;
+    this.fps = settings.fps;
     this.balls = [];
-    this.brain = new Brain(gravity, (1 / fps), width, height);
+    this.brain = new Brain(settings);
     this.painter = new Painter(canvas);
   }
 
@@ -25,15 +25,23 @@ export default class Game {
     this.c.width = this.width;
     this.c.height = this.height;
     this.c.addEventListener("click", (e) => {
-      let { x, y } = getMousePosition.call(this, e);
-      this.createBall(x, y);
+
+      let rect = this.c.getBoundingClientRect();
+      let root = document.documentElement;
+
+      let pos = {
+        x: event.clientX - rect.left - root.scrollLeft,
+        y: event.clientY - rect.top - root.scrollTop
+      }
+
+      this.createBall(pos);
     });
 
     return this;
   }
 
   /**
-   * Continuously delegates balls moveAllment to the brain and tells the painter to draw them
+   * Every interval of milliseconds, delegates ball movement to the brain and tells the painter to draw them
    * 
    * @memberof Game
    */
@@ -48,30 +56,13 @@ export default class Game {
   }
 
   /**
-   * Creates ball at given coordinates x and y
+   * Creates ball at given position with x and y coordinates
    * 
    * @param {Number} x 
    * @param {Number} y
    * @memberof Game
    */
-  createBall(x, y) {
+  createBall({ x, y }) {
     this.balls.push(new Ball(x, y));
   }
-}
-
-/**
- * Helper function that retrieves mouse coordinates when event happens
- * 
- * @param {Event} event 
- * @returns Object with coordinates x and y
- */
-function getMousePosition(event) {
-
-  let rect = this.c.getBoundingClientRect();
-  let root = document.documentElement;
-  
-  return {
-    x: event.clientX - rect.left - root.scrollLeft,
-    y: event.clientY - rect.top - root.scrollTop
-  };
 }
