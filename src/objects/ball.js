@@ -7,7 +7,7 @@ export default class Ball {
     this.vx = deltaGenerator(-1000, 1000);
     this.vy = deltaGenerator(-1000, 1000);
     this.color = colorGenerator();
-    this.isAlive = true;
+    this.isActive = true;
   }
 }
 

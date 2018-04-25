@@ -9,7 +9,7 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 You'll need [npm](https://www.npmjs.com/get-npm) installed in order to experience this awesome "thing", for lack of a better word.
-To verify that you indeed have it on your system, on a terminal window, run:
+To verify that you indeed have it on your system, in a terminal window, run:
 
 ```
 $ npm -v

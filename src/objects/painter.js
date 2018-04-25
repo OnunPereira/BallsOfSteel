@@ -1,34 +1,36 @@
-// This guy will draw everything
 export default class Painter {
 
   constructor(canvas) {
     this.c = canvas;
-    this.ctx = this.c.getContext('2d');
+    this.ctx = canvas.getContext('2d');
   }
 
-  draw(objects) {
-    drawRect(0, 0, this.c.width, this.c.height, '#fff', this.ctx);
-    for (let obj of objects) {
-      if (obj.isAlive) {
-        drawCircle(obj, this.ctx);
+  /**
+   * Clears canvas and designs every active ball on the balls array.
+   * This method is executed every frame.
+   * 
+   * @param {any} balls 
+   * @memberof Painter
+   */
+  draw(balls) {
+    this.clearCanvas();
+    for (let ball of balls) {
+      if (ball.isActive) {
+        this.drawBall(ball);
       }
     }
   }
-}
 
-/*************************************/
-/******** HELPER FUNCTIONS ***********/
-/*************************************/
+  clearCanvas() {
+    this.ctx.fillStyle = '#fff';
+    this.ctx.fillRect(0, 0, this.c.width, this.c.height);
+  }
 
-function drawRect(x, y, w, h, color, ctx) {
-  ctx.fillStyle = color;
-  ctx.fillRect(x, y, w, h);
-}
-
-function drawCircle({ x, y, radius, color }, ctx) {
-  ctx.beginPath();
-  ctx.fillStyle = color;
-  ctx.arc(x, y, radius, 0, 2 * Math.PI);
-  ctx.fill();
-  ctx.stroke();
+  drawBall({ x, y, radius, color }) {
+    this.ctx.beginPath();
+    this.ctx.fillStyle = color;
+    this.ctx.arc(x, y, radius, 0, 2 * Math.PI);
+    this.ctx.fill();
+    this.ctx.stroke();
+  }
 }

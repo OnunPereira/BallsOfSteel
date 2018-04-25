@@ -1,53 +1,56 @@
-// This guy will calculate and execute every move
 export default class Brain {
 
-  constructor(deltaTime, { width, height }) {
+  constructor(gravity, deltaTime, width, height) {
+    this.g = gravity;
     this.dt = deltaTime;
-    this.g = 980;
-    this.maxWidth = width;
-    this.maxHeight = height;
+    this.w = width;
+    this.h = height;
   }
 
-  move(objects) {
+  moveAll(balls) {
 
-    for (let obj of objects) {
+    for (let ball of balls) {
       
-      if (!obj.isAlive) {
+      if (!ball.isActive) {
         continue;
       }
 
+      // calculate dt dependent variables
+      ball.x += ball.vx * this.dt;
+      ball.y += ball.vy * this.dt - 0.5 * this.g * Math.pow(this.dt, 2);
+      ball.vy += this.g * this.dt;
+
       // verify if ball is on a canvas limit
-      if (obj.x - obj.radius < 0) {
+      if (ball.x - ball.radius < 0) {
 
-        obj.vx = changeVelocity(obj.vx);
-        obj.x = obj.radius + 1;
+        ball.vx = changeVelocity(ball.vx);
+        ball.x = ball.radius + 1;
 
-      } else if (obj.x + obj.radius > this.maxWidth) {
+      } else if (ball.x + ball.radius > this.w) {
 
-        obj.vx = changeVelocity(obj.vx);
-        obj.x = this.maxWidth - obj.radius;
+        ball.vx = changeVelocity(ball.vx);
+        ball.x = this.w - ball.radius;
       }
 
-      if (obj.y - obj.radius < 0) {
+      if (ball.y - ball.radius < 0) {
 
-        obj.vy = changeVelocity(obj.vy);
-        obj.y = obj.radius + 1;
+        ball.vy = changeVelocity(ball.vy);
+        ball.y = ball.radius + 1;
 
-      } else if (obj.y + obj.radius > this.maxHeight) {
+      } else if (ball.y + ball.radius > this.h) {
 
-        if (Math.abs(obj.vy) < 100 && Math.abs(obj.vx) < 150) {
-          obj.isAlive = false;
+        if (Math.abs(ball.vy) < 100 && Math.abs(ball.vx) < 150) {
+          ball.isActive = false;
         }
 
-        obj.vy = changeVelocity(obj.vy);
-        obj.y = this.maxHeight - obj.radius;
+        ball.vy = changeVelocity(ball.vy);
+        ball.y = this.h - ball.radius;
       }
-
-      // calculate dt dependent variables
-      obj.x += obj.vx * this.dt;
-      obj.y += obj.vy * this.dt - 0.5 * this.g * Math.pow(this.dt, 2);
-      obj.vy += this.g * this.dt;
     }
+  }
+
+  move(ball) {
+    
   }
 }
 
@@ -56,6 +59,6 @@ export default class Brain {
 /*************************************/
 
 function changeVelocity(vel) {
-  const LOSS = 0.3; // should be 0.1, but 0.3 is a better replica
+  const LOSS = 0.1; // should be 0.1, but 0.3 is a better replica
   return -vel * (1 - LOSS);
 }
