@@ -21,7 +21,7 @@ You should get:
 6.0.0
 ```
 
-After cloning the repo, it's time to install the dependencies. Run:
+After cloning the repo, it's time to install the dependencies. Run inside the cloned directory:
 
 ```
 $ npm install
@@ -37,8 +37,8 @@ $ npm run test
 
 ## Deployment
 
+The next command will create/update your [dist](https://github.com/OnunPereira/BallsOfSteel/tree/master/dist) folder with all the files ready to be served!
+
 ```
 $ npm run build
 ```
-
-This command will create/update your /dist folder with all the files ready to be served!
