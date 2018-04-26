@@ -27,6 +27,16 @@ After cloning the repo, it's time to install the dependencies. Run inside the cl
 $ npm install
 ```
 
+## Development
+
+For development purposes, I created the npm script __dev__, which will create a development server provided by the [webpack-dev-server](https://github.com/webpack/webpack-dev-server) dependency. Run:
+
+```
+$ npm run dev
+```
+
+Now, whenever you modify a file and then save it, the dev server will live-reload the files and you can immediatelly see the changes in your browser.
+
 ## Running the tests
 
 In order to run the tests, just run the following npm command:
