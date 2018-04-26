@@ -30,8 +30,8 @@ export default class Game {
       let root = document.documentElement;
 
       let pos = {
-        x: event.clientX - rect.left - root.scrollLeft,
-        y: event.clientY - rect.top - root.scrollTop
+        x: e.clientX - rect.left - root.scrollLeft,
+        y: e.clientY - rect.top - root.scrollTop
       }
 
       this.createBall(pos);
