@@ -6,7 +6,7 @@ export default class Brain {
     this.dt = 1/fps;
     this.g = gravity;
     this.velocityKept = 1 - dampening;
-    this.minVelocity = (gravity/fps) * (1/dampening);
+    this.minVelocity = (gravity/fps) * (2/dampening);
   }
 
   /**
