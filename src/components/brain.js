@@ -5,7 +5,7 @@ export default class Brain {
     this.h = height;
     this.dt = 1/fps;
     this.g = gravity;
-    this.vLoss = 1 - dampening;
+    this.velocityKept = 1 - dampening;
     this.minVelocity = (gravity/fps) * (1/dampening);
   }
 
@@ -23,7 +23,7 @@ export default class Brain {
         this.move(ball);
         this.checkHorizontalLimits(ball);
         this.checkVerticalLimits(ball);
-        this.checkBallInactive(ball);
+        ball.isActive = this.isActive(ball);
       }
     }
   }
@@ -41,8 +41,8 @@ export default class Brain {
   }
 
   /**
-   * Checks if ball has passed both horizontal limits.
-   * If so, resets ball X coordinate and changes velocity
+   * Checks if ball has passed horizontal limits.
+   * If so, resets ball X coordinate and changes velocity.
    * 
    * @param {Ball} ball 
    * @memberof Brain
@@ -51,18 +51,19 @@ export default class Brain {
 
     if (ball.x - ball.radius < 0) {
 
-      ball.vx *= -this.vLoss;
+      ball.vx *= -this.velocityKept;
       ball.x = ball.radius;
 
     } else if (ball.x + ball.radius > this.w) {
 
-      ball.vx *= -this.vLoss;
+      ball.vx *= -this.velocityKept;
       ball.x = this.w - ball.radius;
     }
   }
 
   /**
-   * 
+   * Checks if ball has passed vertical limits.
+   * If so, resets ball Y coordinate and changes velocity.
    * 
    * @param {any} ball 
    * @memberof Brain
@@ -71,29 +72,26 @@ export default class Brain {
 
     if (ball.y - ball.radius < 0) {
 
-      ball.vy *= -this.vLoss; // 1 - vLoss percent in the opposite direction
+      ball.vy *= -this.velocityKept;
       ball.y = ball.radius;
 
     } else if (ball.y + ball.radius > this.h) {
 
-      ball.vy *= -this.vLoss;
-      console.log(ball.vy);
+      ball.vy *= -this.velocityKept;
       ball.y = this.h - ball.radius;
     }
   }
-
+  
   /**
+   * Checks if ball is on the ground and if its absolute velocity is lower than minimum accepted velocity
    * 
-   * 
-   * @param {any} ball 
+   * @param {Ball} ball 
+   * @returns Boolean
    * @memberof Brain
    */
-  checkBallInactive(ball) {
+  isActive(ball) {
 
-    let totalVelocity = Math.sqrt(Math.pow(ball.vx, 2) + Math.pow(ball.vy, 2));
-
-    if (totalVelocity < this.minVelocity && ball.y === this.h - ball.radius) {
-      ball.isActive = false;
-    }
+    let absVelocity = Math.sqrt(Math.pow(ball.vx, 2) + Math.pow(ball.vy, 2));
+    return absVelocity > this.minVelocity || ball.y !== this.h - ball.radius;
   }
 }

@@ -17,11 +17,6 @@ module.exports = {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"]
-      },
-      {
-        test: /test\.js$/,
-        exclude: /node_modules/,
-        use: 'mocha-loader'
       }
     ]
   },

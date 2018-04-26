@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-You'll need [npm](https://www.npmjs.com/get-npm) installed in order to experience this awesome "thing", for lack of a better word.
+You'll need [npm](https://www.npmjs.com/get-npm) in order to experience this awesome "thing", for lack of a better word.
 To verify that you indeed have it on your system, in a terminal window, run:
 
 ```
@@ -21,6 +21,24 @@ You should get:
 6.0.0
 ```
 
+After cloning the repo, it's time to install the dependencies. Run:
+
+```
+$ npm install
+```
+
 ## Running the tests
 
+In order to run the tests, just run the following npm command:
+
+```
+$ npm run test
+```
+
 ## Deployment
+
+```
+$ npm run build
+```
+
+This command will create/update your /dist folder with all the files ready to be served!
