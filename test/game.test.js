@@ -7,10 +7,6 @@ const game = new Game(document.createElement('canvas'), {
   gravity: 10,
   fps: 1,
   dampening: 0.1
-}).init();
-
-test("init function", () => {
-  expect(game.c).toContain({width: 600, height: 400});
 });
 
 test("Creates Ball and adds it to Balls array", () => {
