@@ -15,7 +15,7 @@ export default class Game {
   }
 
   /**
-   * Initializes Canvas related properties and methods
+   * Initializes Canvas related properties and methods.
    * 
    * @returns the Game object itself
    * @memberof Game
@@ -41,7 +41,7 @@ export default class Game {
   }
 
   /**
-   * Every interval of milliseconds, delegates ball movement to the brain and tells the painter to draw them
+   * Every interval of milliseconds (based on the fps), delegates ball movement to the brain and tells the painter to  * draw all balls.
    * 
    * @memberof Game
    */
@@ -56,7 +56,7 @@ export default class Game {
   }
 
   /**
-   * Creates ball at given position with x and y coordinates
+   * Creates ball at given position with x and y coordinates.
    * 
    * @param {Number} x 
    * @param {Number} y

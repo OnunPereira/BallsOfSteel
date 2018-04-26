@@ -15,7 +15,7 @@ export default class Painter {
   draw(balls) {
     this.clearCanvas();
     for (let ball of balls) {
-      if (ball.isActive) {
+      if (ball.active) {
         this.drawBall(ball);
       }
     }

@@ -68,3 +68,13 @@ test("check bottom border", () => {
   expect(ball.y).toBe(brain.h - ball.radius);
   expect(ball.vy).toBe(-9);
 });
+
+test("inactive ball", () => {
+
+  const ball = new Ball(100, 350);
+  ball.radius = 50;
+  ball.vx = 0;
+  ball.vy = 0;
+
+  expect(brain.isActive(ball)).toBeFalsy();
+});

@@ -10,7 +10,8 @@ export default class Brain {
   }
 
   /**
-   * Calculates the movement of given array of Ball objects
+   * Calculates the movement of given array of Ball objects.
+   * This method is executed every frame.
    * 
    * @param {[Ball]} balls 
    * @memberof Brain
@@ -19,17 +20,17 @@ export default class Brain {
 
     for (let ball of balls) {
       
-      if (ball.isActive) {
+      if (ball.active) {
         this.move(ball);
         this.checkHorizontalLimits(ball);
         this.checkVerticalLimits(ball);
-        ball.isActive = this.isActive(ball);
+        ball.active = this.isActive(ball);
       }
     }
   }
 
   /**
-   * Calculates the laws of motion for the given Ball object in a determined time interval
+   * Calculates the laws of motion for the given Ball object in a determined time interval.
    * 
    * @param {Ball} ball 
    * @memberof Brain
@@ -42,51 +43,41 @@ export default class Brain {
 
   /**
    * Checks if ball has passed horizontal limits.
-   * If so, resets ball X coordinate and changes velocity.
+   * If so, fixes ball X coordinate and changes velocity.
    * 
    * @param {Ball} ball 
    * @memberof Brain
    */
   checkHorizontalLimits(ball) {
 
-    if (ball.x - ball.radius < 0) {
+    if (ball.x <= ball.radius || ball.x + ball.radius > this.w) {
 
       ball.vx *= -this.velocityKept;
-      ball.x = ball.radius;
-
-    } else if (ball.x + ball.radius > this.w) {
-
-      ball.vx *= -this.velocityKept;
-      ball.x = this.w - ball.radius;
+      ball.x = ball.x < ball.radius ? ball.radius : this.w - ball.radius;
     }
   }
 
   /**
    * Checks if ball has passed vertical limits.
-   * If so, resets ball Y coordinate and changes velocity.
+   * If so, fixes ball Y coordinate and changes velocity.
    * 
    * @param {any} ball 
    * @memberof Brain
    */
   checkVerticalLimits(ball) {
 
-    if (ball.y - ball.radius < 0) {
+    if (ball.y <= ball.radius || ball.y + ball.radius > this.h) {
 
       ball.vy *= -this.velocityKept;
-      ball.y = ball.radius;
-
-    } else if (ball.y + ball.radius > this.h) {
-
-      ball.vy *= -this.velocityKept;
-      ball.y = this.h - ball.radius;
+      ball.y = ball.y < ball.radius ? ball.radius : this.h - ball.radius;
     }
   }
   
   /**
-   * Checks if ball is on the ground and if its absolute velocity is lower than minimum accepted velocity
+   * Checks if ball is on the ground and if its absolute velocity is lower than minimum accepted velocity.
    * 
    * @param {Ball} ball 
-   * @returns Boolean
+   * @returns {Boolean}
    * @memberof Brain
    */
   isActive(ball) {
